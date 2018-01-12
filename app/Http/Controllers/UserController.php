@@ -33,6 +33,8 @@ class UserController extends Controller
                 ->item($user)
                 ->transformWith(new UserTransformer)
                 ->includeSchools()
+                ->includeStudents()
+                ->includeAbsents()
                 ->toArray();    
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\School;
 use App\Student;
+use App\Absent;
 
 class User extends Authenticatable
 {
@@ -49,5 +50,15 @@ class User extends Authenticatable
     public function ownsSchool(School $school)
     {
         return auth()->id() === $school->user->id;
+    }
+
+    public function ownsStudent(Student $student)
+    {
+        return auth()->id() === $student->user->id;
+    }
+
+    public function ownsAbsent(Absent $absent)
+    {
+        return auth()->id() === $absent->user->id;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use App\Student;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StudentPolicy
@@ -14,8 +15,13 @@ class StudentPolicy
      *
      * @return void
      */
-    public function __construct()
+    public function update(User $user, Student $student)
     {
-        //
+        return $user->ownsStudent($student);
+    }
+
+    public function delete(User $user, Student $student)
+    {
+        return $user->ownsStudent($student);
     }
 }

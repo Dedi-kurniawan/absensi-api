@@ -96,13 +96,13 @@ class SchoolController extends Controller
         $this->authorize('update', $school);
         
         $school->nama_sekolah  = $request->get('nama_sekolah', $school->nama_sekolah);
-        $school->alamat        = $request->get('alamat',      $school->alamat);
-        $school->alamat        = $request->get('kecamatan',   $school->kecamatan);
-        $school->alamat        = $request->get('kabupaten',   $school->kabupaten);
-        $school->alamat        = $request->get('provinsi',    $school->provinsi);
+        $school->alamat        = $request->get('alamat',       $school->alamat);
+        $school->alamat        = $request->get('kecamatan',    $school->kecamatan);
+        $school->alamat        = $request->get('kabupaten',    $school->kabupaten);
+        $school->alamat        = $request->get('provinsi',     $school->provinsi);
         $school->save();
 
-                $response = fractal()
+                return fractal()
                 ->item($school)
                 ->transformWith(new SchoolTransformer)
                 ->toArray();

@@ -31,3 +31,4 @@ Route::get('users/profile', 'UserController@profile')->middleware('auth:api');
 // Route::post('school', 'SchoolController@store')->middleware('auth:api');
 Route::resource('school', 'SchoolController')->middleware('auth:api');
 Route::resource('student', 'StudentController')->middleware('auth:api');
+Route::resource('absent', 'AbsentController')->middleware('auth:api');

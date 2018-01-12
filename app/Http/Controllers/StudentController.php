@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StudentRequest;
-use App\Transformers\StudentTransformer;
 use App\Student;
 use Auth;
+use App\Http\Requests\StudentRequest;
+use App\Transformers\StudentTransformer;
+
 
 class StudentController extends Controller
 {
@@ -81,9 +82,18 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Student $student)
     {
-        //
+        $this->authorize('update', $student);
+        $student->nama_siswa = $request->get('nama_siswa', $student->nama_siswa);
+        $student->kelas      = $request->get('kelas', $student->kelas);
+        $student->save();
+
+        return fractal()
+                ->item($student)
+                ->transformWith(new StudentTransformer)
+                ->toArray();
+
     }
 
     /**
@@ -92,8 +102,13 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        //
+        $this->authorize('delete', $student);
+        $student->delete();
+
+        return response()->json([
+               'massages' => 'Student Delete Succes',
+            ]);       
     }
 }
